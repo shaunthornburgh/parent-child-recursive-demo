@@ -12,18 +12,33 @@ class CategoryRelationshipTest extends TestCase
 
     public function test_a_category_has_children()
     {
-        $category = Category::create(['name' => 'Electronics']);
-        $child1 = Category::create(['name' => 'Mobile Phones', 'parent_id' => $category->id]);
-        $child2 = Category::create(['name' => 'Laptops', 'parent_id' => $category->id]);
+        $category = Category::factory()->create([
+            'name' => 'Electronics'
+        ]);
+
+        $child1 = Category::factory()->create([
+            'name' => 'Mobile Phones',
+            'parent_id' => $category->id
+        ]);
+
+        $child2 = Category::factory()->create([
+            'name' => 'Laptops',
+            'parent_id' => $category->id
+        ]);
 
         $this->assertCount(2, $category->children);
     }
 
     public function test_a_category_has_a_parent()
     {
-        $parent = Category::create(['name' => 'Electronics']);
+        $parent = Category::factory()->create([
+            'name' => 'Electronics'
+        ]);
 
-        $child = Category::create(['name' => 'Mobile Phones', 'parent_id' => $parent->id]);
+        $child = Category::factory()->create([
+            'name' => 'Mobile Phones',
+            'parent_id' => $parent->id
+        ]);
 
         $this->assertEquals($parent->id, $child->parent->id);
     }
